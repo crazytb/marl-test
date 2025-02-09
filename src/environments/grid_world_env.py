@@ -3,10 +3,13 @@ import numpy as np
 import gymnasium as gym
 from gymnasium import spaces
 import sys
-sys.path.append('../../marl-framework')
+from pathlib import Path
+# Get absolute path to marl-framework
+framework_path = Path(__file__).parent.parent.parent / 'marl-framework'
+sys.path.append(str(framework_path))
 from environments.base_env import BaseEnvironment
 
-class GridWorldEnv(gym.Env):
+class GridWorldEnv(BaseEnvironment):
     """
     간단한 그리드 월드 멀티에이전트 환경
     - 여러 에이전트가 격자 위에서 이동
@@ -36,6 +39,7 @@ class GridWorldEnv(gym.Env):
         self.steps = 0
         
     def reset(self, seed=None):
+        # seed 파라미터를 부모 클래스의 reset 메서드에 전달
         super().reset(seed=seed)
         self.steps = 0
         
